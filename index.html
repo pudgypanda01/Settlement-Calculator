@@ -98,6 +98,13 @@
             text-align: center;
         }
 
+        .button-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+        }
+
         tr:nth-child(even) {
             background-color: #f2f2f2;
         }
@@ -150,7 +157,9 @@
                     </tr>
                 </tfoot>
             </table>
-            <button type="button" onclick="calculateSettlements()">Calculate Settlements</button>
+            <div class="button-container">
+                <button type="button" onclick="calculateSettlements()">Calculate Settlements</button>
+            </div>
         </form>
         <div id="results"></div>
     </div>
