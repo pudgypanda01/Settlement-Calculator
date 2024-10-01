@@ -2,127 +2,171 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Player Settlement Calculator</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f0f0f0;
+            background-color: #f8f8f8;
             display: flex;
             flex-direction: column;
             align-items: center;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
         }
 
         h1 {
             background-color: #4CAF50;
             color: white;
-            padding: 20px;
-            margin-bottom: 30px;
-            width: 70%;
+            padding: 15px;
+            margin-bottom: 20px;
+            width: 100%;
+            max-width: 700px;
             text-align: center;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 70%;
+            width: 100%;
+            max-width: 700px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
         }
 
-        .player-count-container {
+        .input-row {
             display: flex;
-            flex-direction: row;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
         }
 
-        label, input[type="number"], input[type="text"], button {
+        label {
             font-size: 16px;
+            font-weight: bold;
         }
 
-        #playerCount {
-            width: 60px;
-            margin-left: 10px;
+        input[type="numberofplayers"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 90px;
+            font-size: 16px;
         }
 
         button {
             background-color: #4CAF50;
             color: white;
-            padding: 10px 20px;
-            margin: 8px 0;
+            padding: 12px;
+            margin: 10px 0;
             border: none;
-            border-radius: 4px;
+            border-radius: 5px;
             cursor: pointer;
+            font-size: 18px;
+            width: 100%;
+            max-width: 700px;
+            transition: background-color 0.3s;
         }
 
         button:hover {
             background-color: #45a049;
         }
 
+        button:active {
+            background-color: #3d9143;
+        }
+
         table {
-            border-collapse: collapse;
             width: 100%;
-            table-layout: fixed;
+            border-collapse: collapse;
+            margin-bottom: 20px;
         }
 
         th, td {
+            padding: 10px;
             border: 1px solid #ccc;
-            text-align: left;
-            padding: 0;
-            width: auto;
-            position: relative;
-            overflow: hidden;
-            word-wrap: break-word;
-        }
-
-        .input-wrapper {
-            width: 100%;
-            height: 100%;
-            padding: 8px;
-        }
-
-        input[type="number"], input[type="text"] {
-            width: 100%;
-            border: none;
-            background-color: transparent;
-        }
-
-        input[type="numberofplayers"]{
-            width: 100%;
-            border: 2px solid #007bff;
-            border-radius: 4px;
-            padding: 2px;
             text-align: center;
-        }
-
-        .button-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 0;
-        }
-
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
         }
 
         th {
             background-color: #4CAF50;
             color: white;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tfoot td {
+            font-weight: bold;
+            background-color: #f2f2f2;
+        }
+
+        .button-container {
+            text-align: center;
+        }
+
+        .results {
+            margin-top: 20px;
+            background-color: #fff3cd;
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid #ffeeba;
+            font-size: 16px;
+            word-wrap: break-word;
+        }
+
+        /* iOS-specific input styling fixes */
+        input[type="number"], input[type="text"] {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #fff;
+            box-sizing: border-box;
+        }
+
+        /* Responsive design */
+        @media screen and (max-width: 700px) {
+            h1, button, .container {
+                width: 90%;
+            }
+
+            input[type="numberofplayers"] {
+                width: 80px;
+            }
+
+            th, td {
+                font-size: 14px;
+            }
+
+            button {
+                font-size: 16px;
+            }
         }
     </style>
 </head>
 <body>
     <h1>Player Settlement Calculator</h1>
     <div class="container">
-        <div class="input-row"
+        <div class="input-row">
             <label for="playerCount">Number of Players:</label>
             <input type="numberofplayers" id="playerCount" name="playerCount">
         </div>
-            <button type="button" onclick="generatePlayerRows()">Generate Rows</button>
+        <button type="button" onclick="generatePlayerRows()">Generate Rows</button>
+
         <form id="settlementForm">
             <table>
                 <thead>
@@ -130,7 +174,7 @@
                         <th>Player Name</th>
                         <th>Buy-in ($)</th>
                         <th>Ending Chip Stack ($)</th>
-                        <th>Profit/ Loss ($)</th>
+                        <th>Profit/Loss ($)</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -139,21 +183,9 @@
                 <tfoot>
                     <tr>
                         <td>Total:</td>
-                        <td id="totalBuyIn">
-                            <div class="input-wrapper">
-                                <input type="number" name="totalBuyIn" />
-                            </div>
-                        </td>
-                        <td id="totalEndStack">
-                            <div class="input-wrapper">
-                                <input type="number" name="totalEndStack" />
-                            </div>
-                        </td>
-                        <td id="totalProfitLoss">
-                            <div class="input-wrapper">
-                                <input type="number" name="totalProfitLoss" />
-                            </div>
-                        </td>
+                        <td id="totalBuyIn">0</td>
+                        <td id="totalEndStack">0</td>
+                        <td id="totalProfitLoss">0</td>
                     </tr>
                 </tfoot>
             </table>
@@ -161,106 +193,99 @@
                 <button type="button" onclick="calculateSettlements()">Calculate Settlements</button>
             </div>
         </form>
-        <div id="results"></div>
+
+        <div id="results" class="results"></div>
     </div>
+
     <script>
-function generatePlayerRows() {
-    const playerCount = parseInt(document.getElementById('playerCount').value);
-    const tbody = document.querySelector('tbody');
-    tbody.innerHTML = '';
+        function generatePlayerRows() {
+            const playerCount = parseInt(document.getElementById('playerCount').value);
+            const tbody = document.querySelector('tbody');
+            tbody.innerHTML = '';
 
-    for (let i = 1; i <= playerCount; i++) {
-        tbody.innerHTML += `
-            <tr>
-                <td><input type="text" name="playerName${i}" oninput="updateSettlements()"></td>
-                <td><input type="number" step="any" name="buyIn${i}" oninput="updateProfitLoss(${i})"></td>
-                <td><input type="number" step="any" name="endStack${i}" oninput="updateProfitLoss(${i})"></td>
-                <td id="profitLoss${i}"></td>
-            </tr>
-        `;
-    }
-}
-
-function updateProfitLoss(playerId) {
-    const form = document.getElementById('settlementForm');
-    const buyIn = parseFloat(form['buyIn' + playerId].value);
-    const endStack = parseFloat(form['endStack' + playerId].value);
-    const profitLoss = endStack - buyIn;
-    document.getElementById('profitLoss' + playerId).textContent = isNaN(profitLoss) ? '' : profitLoss.toFixed(2);
-    updateSettlements();
-}
-
-function updateSettlements() {
-    const form = document.getElementById('settlementForm');
-    const playerCount = parseInt(document.getElementById('playerCount').value);
-    let players = [];
-    let totalBuyIn = 0;
-    let totalEndStack = 0;
-    let totalProfitLoss = 0;
-
-    for (let i = 1; i <= playerCount; i++) {
-        let playerName = form['playerName' + i].value;
-        let buyIn = parseFloat(form['buyIn' + i].value);
-        let endStack = parseFloat(form['endStack' + i].value);
-        let profitLoss = endStack - buyIn;
-
-        if (!isNaN(buyIn)) {
-            totalBuyIn += buyIn;
-        }
-        if (!isNaN(endStack)) {
-            totalEndStack += endStack;
-        }
-        if (!isNaN(profitLoss)) {
-            totalProfitLoss += profitLoss;
+            for (let i = 1; i <= playerCount; i++) {
+                tbody.innerHTML += `
+                    <tr>
+                        <td><input type="text" name="playerName${i}" oninput="updateSettlements()"></td>
+                        <td><input type="number" step="any" name="buyIn${i}" oninput="updateProfitLoss(${i})"></td>
+                        <td><input type="number" step="any" name="endStack${i}" oninput="updateProfitLoss(${i})"></td>
+                        <td id="profitLoss${i}"></td>
+                    </tr>
+                `;
+            }
         }
 
-        players.push({ id: i, name: playerName, diff: profitLoss });
-    }
+        function updateProfitLoss(playerId) {
+            const form = document.getElementById('settlementForm');
+            const buyIn = parseFloat(form['buyIn' + playerId].value);
+            const endStack = parseFloat(form['endStack' + playerId].value);
+            const profitLoss = endStack - buyIn;
+            document.getElementById('profitLoss' + playerId).textContent = isNaN(profitLoss) ? '' : profitLoss.toFixed(2);
+            updateSettlements();
+        }
 
-    document.getElementById('totalBuyIn').textContent = totalBuyIn.toFixed(2);
-    document.getElementById('totalEndStack').textContent = totalEndStack.toFixed(2);
-    document.getElementById('totalProfitLoss').textContent = totalProfitLoss.toFixed(2);
-}
-function calculateSettlements() {
-    const form = document.getElementById('settlementForm');
-    const playerCount = parseInt(document.getElementById('playerCount').value);
-    let players = [];
+        function updateSettlements() {
+            const form = document.getElementById('settlementForm');
+            const playerCount = parseInt(document.getElementById('playerCount').value);
+            let totalBuyIn = 0;
+            let totalEndStack = 0;
+            let totalProfitLoss = 0;
 
-    for (let i = 1; i <= playerCount; i++) {
-        let playerName = form['playerName' + i].value;
-        let buyIn = parseFloat(form['buyIn' + i].value);
-        let endStack = parseFloat(form['endStack' + i].value);
-        let profitLoss = endStack - buyIn;
-        players.push({ id: i, name: playerName, diff: profitLoss });
-    }
+            for (let i = 1; i <= playerCount; i++) {
+                let buyIn = parseFloat(form['buyIn' + i].value);
+                let endStack = parseFloat(form['endStack' + i].value);
+                let profitLoss = endStack - buyIn;
 
-    players.sort((a, b) => a.diff - b.diff);
+                if (!isNaN(buyIn)) totalBuyIn += buyIn;
+                if (!isNaN(endStack)) totalEndStack += endStack;
+                if (!isNaN(profitLoss)) totalProfitLoss += profitLoss;
+            }
 
-    let transactions = [];
+            document.getElementById('totalBuyIn').textContent = totalBuyIn.toFixed(2);
+            document.getElementById('totalEndStack').textContent = totalEndStack.toFixed(2);
+            document.getElementById('totalProfitLoss').textContent = totalProfitLoss.toFixed(2);
+        }
 
-    while (players.length > 1) {
-        let payer = players.shift();
-        let payee = players.pop();
+        function calculateSettlements() {
+            const form = document.getElementById('settlementForm');
+            const playerCount = parseInt(document.getElementById('playerCount').value);
+            let players = [];
 
-        let amount = Math.min(Math.abs(payer.diff), Math.abs(payee.diff));
-        payer.diff += amount;
-        payee.diff -= amount;
+            for (let i = 1; i <= playerCount; i++) {
+                let playerName = form['playerName' + i].value;
+                let buyIn = parseFloat(form['buyIn' + i].value);
+                let endStack = parseFloat(form['endStack' + i].value);
+                let profitLoss = endStack - buyIn;
+                players.push({ id: i, name: playerName, diff: profitLoss });
+            }
 
-        transactions.push(`${payer.name} owes ${payee.name}: $${amount.toFixed(2)}`);
-
-        if (payer.diff !== 0) {
-            players.push(payer);
             players.sort((a, b) => a.diff - b.diff);
-        }
 
-        if (payee.diff !== 0) {
-            players.push(payee);
-            players.sort((a, b) => a.diff - b.diff);
-        }
-    }
+            let transactions = [];
 
-    document.getElementById('results').innerHTML = transactions.join('<br>');
-}
+            while (players.length > 1) {
+                let payer = players.shift();
+                let payee = players.pop();
+
+                let amount = Math.min(Math.abs(payer.diff), Math.abs(payee.diff));
+                payer.diff += amount;
+                payee.diff -= amount;
+
+                transactions.push(`${payer.name} owes ${payee.name}: $${amount.toFixed(2)}`);
+
+                if (payer.diff !== 0) {
+                    players.push(payer);
+                    players.sort((a, b) => a.diff - b.diff);
+                }
+
+                if (payee.diff !== 0) {
+                    players.push(payee);
+                    players.sort((a, b) => a.diff - b.diff);
+                }
+            }
+
+            document.getElementById('results').innerHTML = transactions.join('<br>');
+        }
     </script>
 </body>
 </html>
