@@ -29,6 +29,7 @@
             text-align: center;
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            font-size: 18px; /* Add this line or adjust the size as needed */
         }
 
         .container {
@@ -165,7 +166,9 @@
             <label for="playerCount">Number of Players:</label>
             <input type="numberofplayers" id="playerCount" name="playerCount">
         </div>
-        <button type="button" onclick="generatePlayerRows()">Generate Rows</button>
+        <div class="button-container"></div>
+            <button type="button" onclick="generatePlayerRows()">Generate Rows</button>
+        </div>
 
         <form id="settlementForm">
             <table>
